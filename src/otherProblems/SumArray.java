@@ -1,16 +1,18 @@
+package otherProblems;
+
 import java.util.Scanner;
 
-public class SumPair {
+public class SumArray {
 
     public static void main(String[] args) {
-        //System.out.println("Pair with given sum in a sorted array");
+        //System.out.println("Sub-array with given sum in an unsorted array");
         Scanner inputScanner = new Scanner(System.in);
         int numberOfInputs = inputScanner.nextInt();
         int sizeOfArray;
         for(int i = numberOfInputs; i>0; i--){
             sizeOfArray = inputScanner.nextInt();
-            int[] inputArray = scanInputArray(sizeOfArray, inputScanner);
             int desiredSumValue = inputScanner.nextInt();
+            int[] inputArray = scanInputArray(sizeOfArray, inputScanner);
             findSumPair(desiredSumValue, inputArray);
         }
     }
@@ -25,18 +27,18 @@ public class SumPair {
 
     private static void findSumPair(int desiredSumValue, int[] inputArray){
         int i = 0;
-        int j = inputArray.length-1;
+        int n = inputArray.length-1;
+        int j = 0;
         boolean found = false;
-        while (i<j) {
-            int tempSum = inputArray[i] + inputArray[j];
-            if (tempSum == desiredSumValue) {
-                System.out.println(inputArray[i] + " " + inputArray[j] + " " + desiredSumValue);
+        while(i<n  && j<n){
+            int tempSum = sum(inputArray, i, j);
+            if(tempSum == desiredSumValue){
+                System.out.println(i+1 + " "+ j+1);
                 found = true;
-                i++;
-                j--;
-            } else if (tempSum > desiredSumValue) {
-                j--;
-            } else if (tempSum < desiredSumValue) {
+                break;
+            } else if(tempSum<desiredSumValue){
+                j++;
+            }else if(tempSum>desiredSumValue){
                 i++;
             }
         }
@@ -45,11 +47,12 @@ public class SumPair {
         }
     }
 
-//    private static int binarySearch(int elementToFind, int[] inputArray){
-//        int sizeOfArray = inputArray.length;
-//        if(sizeOfArray==0 || inputArray[0] > elementToFind || inputArray[sizeOfArray-1] < elementToFind ){
-//            return;
-//        }
-//    }
+    private static int sum(int[] inputArray, int startIndex, int endIndex){
+        int sum = 0;
+        for (int i=startIndex; i<endIndex; i++){
+            sum= sum+inputArray[i];
+        }
+        return sum;
+    }
 
 }
